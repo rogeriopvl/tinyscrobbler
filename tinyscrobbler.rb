@@ -48,6 +48,7 @@ class Lastfm_Scrobbler
       params << "&m[#{i}]=#{URI.escape(item['mbtrackid'])}"
       i+=1
     end
+    send_submission(@submission_url)
   end
   
   def now_playing
@@ -58,6 +59,8 @@ class Lastfm_Scrobbler
     params << "&l=#{URI.escape(secs)}"
     params << "&n=#{URI.escape(tracknumber)}"
     params << "&m=#{URI.escape(mbtrackid)}"
+    
+    send_submission(@now_playing_url, params)
   end
   
   private #-----------------------------
