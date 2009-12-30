@@ -50,7 +50,7 @@ class Tinyscrobbler
   # and submits the queue.
   
   def played(track)
-    @queue.add(track)
+    @queue << track
     submit_queue
   end
   
@@ -68,8 +68,8 @@ class Tinyscrobbler
     params << "&a=#{URI.escape(track['artistname'])}"
     params << "&t=#{URI.escape(track['track'])}"
     params << "&b=#{URI.escape(track['album'])}"
-    params << "&l=#{URI.escape(track['secs'].to_s)}"
-    params << "&n=#{URI.escape(track['tracknumber'].to_s)}"
+    params << "&l=#{URI.escape(track['secs'])}"
+    params << "&n=#{URI.escape(track['tracknumber'])}"
     params << "&m=#{URI.escape(track['mbtrackid'])}"
     
     send_submission(@now_playing_url, params)
@@ -135,7 +135,7 @@ class Tinyscrobbler
       i+=1
     end
     
-    send_submission(@submission_url)
+    send_submission(@submission_url, params)
     @queue = [] # clean it
   end
   
