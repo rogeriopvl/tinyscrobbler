@@ -1,5 +1,16 @@
+# Tinyscrobbler is a lightweight library for scrobbling tracks
+# to the LastFM submissions API.
+# For more info on the submissions API visit:
+# http://www.last.fm/api/submissions
+# 
+# Author:: Rogerio Vicente (http://rogeriopvl.com)
+# Copyright:: Copyright (c) 2009 Rogerio Vicente
+# License:: GPLv3
+
 require 'net/http'
 require 'Digest/md5'
+
+# Exception classes
 
 class BadFormatedResponseError < Exception; end
 class BadTimeError < Exception; end
@@ -8,12 +19,18 @@ class BannedError < Exception; end
 class BadAuthError < Exception; end
 class BadSessionError < Exception; end
 
-class Lastfm_Scrobbler
+# This is the main Tinyscrobbler class.
+# It contains necessary methods for full
+# interaction with LastFM submissions API.
+
+class Tinyscrobbler
   
   CLIENT_ID = 'tst'
   CLIENT_VERSION = '1.0'
   
   HANDSHAKE_BASE_URL = "http://post.audioscrobbler.com/?hs=true&p=1.2.1&c=#{CLIENT_ID}&v=#{CLIENT_VERSION}"
+  
+  # Starts handshake and initializes instance attributes
   
   def initialize(username, password)
     @username = username
@@ -29,52 +46,51 @@ class Lastfm_Scrobbler
     @submission_url = response[3]
   end
   
-  def add(track)
+  # Adds a new track to the queue
+  # and submits the queue.
+  
+  def played(track)
     @queue.add(track)
+    submit_queue
   end
   
-  def submit
-    params = "s=#{@session_id}"
-    i = 0
-    @queue.each do |item|
-      params << "&a[#{i}]=#{URI.escape(item['artist'])}"
-      params << "&t[#{i}]=#{URI.escape(item['track'])}"
-      params << "&i[#{i}]=#{URI.escape(item['time'])}"
-      params << "&o[#{i}]=#{URI.escape(item['source'])}"
-      params << "&r[#{i}]=#{URI.escape(item['rating'])}"
-      params << "&l[#{i}]=#{URI.escape(item['secs'])}"
-      params << "&b[#{i}]=#{URI.escape(item['album'])}"
-      params << "&n[#{i}]=#{URI.escape(item['tracknumber'])}"
-      params << "&m[#{i}]=#{URI.escape(item['mbtrackid'])}"
-      i+=1
-    end
-    send_submission(@submission_url)
-  end
+  # Sends a now playing track.
+  # track is a hash containing the following keys => values:
+  # * artistname => the name of the artist
+  # * track => the title of the track (song)
+  # * album => the album name
+  # * secs => the length of the track (seconds)
+  # * tracknumber => the number of the track in album
+  # * mbtrackid => the track's musicbrainz id
   
-  def now_playing
+  def now_playing(track)
     params = "s=#{@session_id}"
-    params << "&a=#{URI.escape(artistname)}"
-    params << "&t=#{URI.escape(track)}"
-    params << "&b=#{URI.escape(album)}"
-    params << "&l=#{URI.escape(secs)}"
-    params << "&n=#{URI.escape(tracknumber)}"
-    params << "&m=#{URI.escape(mbtrackid)}"
+    params << "&a=#{URI.escape(track['artistname'])}"
+    params << "&t=#{URI.escape(track['track'])}"
+    params << "&b=#{URI.escape(track['album'])}"
+    params << "&l=#{URI.escape(track['secs'].to_s)}"
+    params << "&n=#{URI.escape(track['tracknumber'].to_s)}"
+    params << "&m=#{URI.escape(track['mbtrackid'])}"
     
     send_submission(@now_playing_url, params)
   end
   
-  private #-----------------------------
+  private
+  
+  # Executes the handshake with the API.
+  # If handshake returned OK then the entire
+  # response is returned in a array, where
+  # * index 0 is the handshake result
+  # * index 1 is the session id
+  # * index 2 is the now playing url
+  # * index 3 is the submissions url
   
   def handshake
     timestamp = Time.now.to_i.to_s
     token = generate_token(timestamp)
     
-    begin
-      url = URI.parse(HANDSHAKE_BASE_URL+"&u=#{@username}&t=#{timestamp}&a=#{token}")
-      response = Net::HTTP.get(url)
-    rescue Exception => e
-      puts "Error on audioscrobbler handshake."
-    end
+    url = URI.parse(HANDSHAKE_BASE_URL+"&u=#{@username}&t=#{timestamp}&a=#{token}")
+    response = Net::HTTP.get(url)
     
     case response
     when /OK/
@@ -92,17 +108,45 @@ class Lastfm_Scrobbler
     end
   end
   
+  # Generates the handshake token.
+  # This token is generated according to:
+  # md5(md5(password)+timestamp)
+  
   def generate_token(timestamp)
     Digest::MD5.hexdigest(Digest::MD5.hexdigest(@password)+timestamp)
   end
   
-  def send_submission(url, params)
-    begin
-      url = URI.parse(url)
-      response = Net::HTTP.post(url, params)
-    rescue Exception => e
-      puts "Error on server request."
+  # Prepares the POST data to submit the track queue.
+  # After the submission the queue is emptied.
+  
+  def submit_queue
+    params = "s=#{@session_id}"
+    i = 0
+    @queue.each do |item|
+      params << "&a[#{i}]=#{URI.escape(item['artist'])}"
+      params << "&t[#{i}]=#{URI.escape(item['track'])}"
+      params << "&i[#{i}]=#{URI.escape(item['time'])}"
+      params << "&o[#{i}]=#{URI.escape(item['source'])}"
+      params << "&r[#{i}]=#{URI.escape(item['rating'])}"
+      params << "&l[#{i}]=#{URI.escape(item['secs'])}"
+      params << "&b[#{i}]=#{URI.escape(item['album'])}"
+      params << "&n[#{i}]=#{URI.escape(item['tracknumber'])}"
+      params << "&m[#{i}]=#{URI.escape(item['mbtrackid'])}"
+      i+=1
     end
+    
+    send_submission(@submission_url)
+    @queue = [] # clean it
+  end
+  
+  # Submits the track queue POST data to the API.
+  # If any error occurs it raises exception.
+  
+  def send_submission(url, params)
+
+    urlp = URI.parse(url)
+    http = Net::HTTP.new('')
+    response = http.post(url, params)
     
     case response
     when /OK/
@@ -110,6 +154,7 @@ class Lastfm_Scrobbler
     when /BADSESSION/
       raise BadSessionError
     else
+      puts response.inspect
       raise RequestFailedError, response
     end
     response
