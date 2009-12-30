@@ -144,9 +144,9 @@ class Tinyscrobbler
   
   def send_submission(url, params)
 
-    urlp = URI.parse(url)
-    http = Net::HTTP.new('')
-    response = http.post(url, params)
+    url = URI.parse(url)
+    http = Net::HTTP.new(url.host)
+    response = http.post(url.path, params).body
     
     case response
     when /OK/
