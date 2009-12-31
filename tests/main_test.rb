@@ -11,18 +11,18 @@ rescue Exception => e
 end
 
 begin
-  ls = Tinyscrobbler.new(username, password)
+  ls = Tinyscrobbler::Client.new(username, password)
 rescue Exception => e
   puts 'Error: unable to start last fm scrobbler.'
 end
 
 track_list = [
-  {'artist' => 'Moonspell', 'track' => 'Vampiria',
-    'time' => '1262185604', 'source' => 'P', 'rating' => '',
-    'secs' => '347', 'album' => 'Wolfheart', 'tracknumber' => '6', 'mbtrackid' => ''},
-  {'artist' => 'Emperor', 'track' => 'Empty',
+  {'artist' => 'Dimmu Borgir', 'track' => 'Arcane Lifeforce',
+    'time' => '1262185646', 'source' => 'P', 'rating' => '',
+    'secs' => '547', 'album' => 'Spiritual Black Dimensions', 'tracknumber' => '9', 'mbtrackid' => ''},
+  {'artist' => 'Emperor', 'track' => 'Depraved',
     'time' => Time.now.to_i.to_s, 'source' => 'P', 'rating' => '',
-    'secs' => '257', 'album' => 'Prometheus - The Discipline of Fire and Demise', 'tracknumber' => '3', 'mbtrackid' => ''}
+    'secs' => '257', 'album' => 'Prometheus - The Discipline of Fire and Demise', 'tracknumber' => '2', 'mbtrackid' => ''}
 ]
 
 # so now, it started playing Moonspell - "Alma Mater" (ftw)
