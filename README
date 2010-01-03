@@ -1,7 +1,0 @@
-Tinyscrobbler is a lightweight LastFM track scrobbler library that allows to quickly incorporate the track scrobbling feature in a ruby player app.
-
-I'm currently learning ruby, so it's very likely that some code is not written the ruby way.
-
-Tinyscrobbler is not yet functional and under constant heavy changes.
-
-More info soon...
