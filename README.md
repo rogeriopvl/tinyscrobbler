@@ -10,7 +10,7 @@ Tinyscrobbler is still under constant heavy changes but here's some early usage 
 
 	# Currently listening to...
 
-	current_track = {'artist' => 'Moonspell', 'track' => 'Alma Mater',
+	current_track = {'artistname' => 'Moonspell', 'track' => 'Alma Mater',
 	  'time' => '1262185646', 'source' => 'P', 'rating' => '',
 	  'secs' => '337', 'album' => 'Wolfheart', 'tracknumber' => '8', 'mbtrackid' => ''}
 

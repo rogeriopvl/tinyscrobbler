@@ -50,6 +50,15 @@ module Tinyscrobbler
 
     # Adds a new track to the queue
     # and submits the queue.
+    # * artistname => the name of the artist
+    # * track => the title of the track (song)
+    # * album => the album name
+    # * secs => the length of the track (seconds)
+    # * tracknumber => the number of the track in album
+    # * mbtrackid => the track's musicbrainz id
+    # * time => the time the track started playing
+    # * source => always 'P'
+    # * rating => the track rating: L, B or S (love, ban, skip)
 
     def played(track)
       @queue << track
@@ -125,7 +134,7 @@ module Tinyscrobbler
       params = "s=#{@session_id}"
       i = 0
       @queue.each do |item|
-        params << "&a[#{i}]=#{URI.escape(item['artist'])}"
+        params << "&a[#{i}]=#{URI.escape(item['artistname'])}"
         params << "&t[#{i}]=#{URI.escape(item['track'])}"
         params << "&i[#{i}]=#{URI.escape(item['time'])}"
         params << "&o[#{i}]=#{URI.escape(item['source'])}"
