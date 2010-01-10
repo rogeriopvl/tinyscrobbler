@@ -18,7 +18,7 @@ module Audiometa
       @extension = File.extname(file_path)
       raise 'Not a valid audio file.' unless @extension == '.mp3'
       
-      metadata = parse_metadata
+      parse_metadata
     end
     
     private
