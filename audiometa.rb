@@ -1,13 +1,14 @@
+require 'mp3info'
+
 module Audiometa
   
-  class AudioFile 
-    
-    attr_reader :extension
-    attr_reader :artist
-    attr_reader :track
+  # This class parses metadata from audio files.
+  # It currently supports only mp3 files.
+  
+  class Parser
     
     # Checks if given file exists and if is supported,
-    # in this case it sets instance attributes, if not
+    # and calls the parser method, if not
     # raises exception.
     
     def initialize(file_path)
@@ -17,27 +18,28 @@ module Audiometa
       raise 'Not a valid audio file.' unless @extension == '.mp3'
       
       metadata = parse_metadata
-      @artist = metadata['artist']
-      @track = metadata['track']
-    end
-    
-    # Returns the file metadata in a hash
-    
-    def parse_metadata
-      bytes = get_last_bytes(128)
     end
     
     private
     
-    # Returns the last n bytes of the file.
-    # This bytes should correspond to the location
-    # of the metadata info.
+    # Returns the file metadata in a hash
     
-    def get_last_bytes(n)
-      File.open(@path) do |f|
-        f.seek(-n, IO::SEEK_END)
-        f.read
-      end
+    def parse_metadata
+      track = Mp3Info.new(@path)
+      tag = track.hastag2? ? track.tag2 : track.tag1
+      
+      track_meta = {}
+      track_meta['track'] = tag.title
+      track_meta['artistname'] = tag.artist
+      track_meta['album'] = tag.album
+      track_meta['tracknumber'] = tag.tracknum.to_s
+      track_meta['secs'] = track.length.round.to_s
+      track_meta['time'] = Time.now.to_s
+      track_meta['source'] = 'P'
+      track_meta['mbtrackid'] = ''
+      track_meta['rating'] = ''
+      
+      track_meta
     end
   
   end
