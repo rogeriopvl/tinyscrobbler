@@ -20,4 +20,23 @@ Tinyscrobbler is still under constant heavy changes but here's some early usage 
 
 	ls.played(current_track)
 
+If you prefer to have tinyscrobbler parse the audio metadata for you, here's an example on how to do it.
+Please notice that currently on mp3 files are supported, and this also requires the "mp3info" gem.
+
+	require 'tinyscrobbler'
+	require 'audiometa.rb'
+	
+	ls = Tinyscrobbler::Client.new(lastfm_username, lasftfm_password)
+
+	# Currently listening to...
+	file_path = '/Users/rogeriopvl/Music/Moonspell/Wolfheart/08_Alma_Mater.mp3'
+	current_track = Audiometa::Parser.new(file_path)
+	
+	ls.now_playing(current_track)
+	
+	# after track played
+	
+	ls.played(current_track)
+	
+
 More info soon...
