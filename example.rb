@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'tinyscrobbler.rb'
 
 ls = Tinyscrobbler::Client.new(lastfm_username, lasftfm_password)
