@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'tinyscrobbler.rb'
 
-ls = Tinyscrobbler::Client.new(lastfm_username, lasftfm_password)
+ls = Tinyscrobbler::Client.new(lastfm_username, lastfm_password)
 
 # Currently listening to...
 
@@ -14,3 +14,5 @@ ls.now_playing(current_track)
 # after track played
 
 ls.played(current_track)
+
+

@@ -9,6 +9,7 @@
 
 require 'net/http'
 require 'Digest/md5'
+require 'parser.rb'
 
 module Tinyscrobbler
   
