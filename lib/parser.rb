@@ -8,7 +8,7 @@ module Tinyscrobbler
   
   class Parser
   
-    attr_accessor :metadata
+    attr_reader :metadata
     
     # Checks if given file exists and if is supported,
     # and calls the parser method, if not
