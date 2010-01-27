@@ -1,1 +1,137 @@
-soon...
+commit 790304455522363342e1440a880928106effb61b
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Wed Jan 27 01:14:58 2010 +0000
+
+    Fixed stupid timestamp error left by mistake from 0.2.
+
+commit b0df962a7d2d464a18465652d65684a12aa010d1
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Wed Jan 27 00:39:37 2010 +0000
+
+    Removed forgotten debug line.
+
+commit c1c8d8feb09eeb312fa9c6ae9bd677b4780caf61
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Wed Jan 27 00:38:43 2010 +0000
+
+    Removed metadata accessor. Created method that updates the current time and returns metadata. This fixed a bug in the parser that was setting the time to when the music first played, making lastfm return error on track submission.
+
+commit 9ea96cb109e6366da923b8b51aeed1d41354febe
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Thu Jan 14 00:09:04 2010 +0000
+
+    changed attribute accessor to reader.
+
+commit 21d3178abc3fb4547214aaba1483cde7e8e823d8
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Wed Jan 13 00:30:34 2010 +0000
+
+    Changed example to reflect recent changes.
+
+commit d2c82bfd6e50a92ff23d53cbc744ca56ee59cfce
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Tue Jan 12 01:58:36 2010 +0000
+
+    Changed audiometa to module tinyscrobbler and renamed to parser. Fixed parser bug.
+
+commit 889d4b19832d598113c7b9cc966560a4c8fb191e
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Mon Jan 11 17:35:42 2010 +0000
+
+    Added require rubygems for compatibility issues
+
+commit b04ffda1557bd91dee558313799c43d1865d3d87
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Mon Jan 11 00:29:57 2010 +0000
+
+    Added gem packaging format.
+
+commit d25a9d4e9418c7fb547fee3202e1574a94623c35
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Sun Jan 10 23:10:48 2010 +0000
+
+    Added a code example to README using audiometa.rb
+
+commit e7160219e5ac7a905fbd1c14e0c61c6ec9816fe1
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Sun Jan 10 22:33:48 2010 +0000
+
+    Optimized the initialize method.
+
+commit 5505eb7f59bd064d7f73add7df80416ea9b5e8c1
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Sun Jan 10 22:32:34 2010 +0000
+
+    Added rubygems require for better compatibility with other systems
+
+commit 5e44f5e101776f29a9da63fc3e420ccbfc313593
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Sun Jan 10 22:30:10 2010 +0000
+
+    This class now uses mp3info gem to read id3 tags. Mp3 only support for now.
+
+commit a9e24c670871c013e10a53883ad60bc79203bb3d
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Mon Jan 4 23:59:55 2010 +0000
+
+    Changed track hash to be equal in now_playing and played. THe only difference now is that played expects 3 more params. Added some more comments.
+
+commit acc4f5efca41922c17ee680c597a962c30861bdc
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Sun Jan 3 01:27:03 2010 +0000
+
+    Removed old README. Added comments to Audiometa.
+
+commit 6cac244c0f31acf5f9e586d52208e018ec73673a
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Sun Jan 3 01:23:37 2010 +0000
+
+    Changed README to Markdown. Added comments in Audiometa.
+
+commit 60f5148e404115dcc4085bb4ff291e8a73c52e37
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Sat Jan 2 01:43:46 2010 +0000
+
+    Added a module for reading audio files metadata so the correct track info can be submited to tinyscrobbler.
+
+commit 49ef4123b58ba9c0f8367c7b71644589f25cf463
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Thu Dec 31 00:45:22 2009 +0000
+
+    wrapped code in module
+
+commit 3d393e7868e298a11f7b5b1d99aad8e82fc7252a
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Wed Dec 30 15:18:50 2009 +0000
+
+    track submission is working. Passes basic test. Test code added for multiple track submission
+
+commit 300769166c2261591342be47fa5973371e6185d8
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Wed Dec 30 14:17:38 2009 +0000
+
+    now playing submission is working and passed the basic test.
+
+commit 942f8613c72af967c95f3fb24099b680303f7457
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Wed Dec 30 01:42:19 2009 +0000
+
+    class code restructured. added lots of comments. More test code also added.
+
+commit 9a6d3d07850f1eaae9c8b6b63715ab4fc8a9ca00
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Tue Dec 29 19:29:24 2009 +0000
+
+    added tests folder with dummy test.
+
+commit 7b304b50975d96bd7113455df40abde980649c5c
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Tue Dec 29 17:49:59 2009 +0000
+
+    Added info to README
+
+commit 943e868d3aeaa86c7a68eea2854b3a9b574c9a59
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Tue Dec 29 17:43:41 2009 +0000
+
+    first commit. Partially working class.
