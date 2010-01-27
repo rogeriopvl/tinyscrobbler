@@ -24,7 +24,7 @@ module Tinyscrobbler
     # Returns the metadata but updates the time param
     
     def metadata
-      @metadata['time'] = Time.now.to_s
+      @metadata['time'] = Time.now.to_i.to_s
       @metadata
     end
     
@@ -42,7 +42,7 @@ module Tinyscrobbler
       track_meta['album'] = track.hastag1? ? tag.album : tag.TALB
       track_meta['tracknumber'] = track.hastag1? ? tag.tracknum.to_s : tag.TRCK.to_s
       track_meta['secs'] = track.length.round.to_s
-      track_meta['time'] = Time.now.to_s
+      track_meta['time'] = Time.now.to_i.to_s
       track_meta['source'] = 'P'
       track_meta['mbtrackid'] = ''
       track_meta['rating'] = ''
