@@ -166,7 +166,6 @@ module Tinyscrobbler
       when /BADSESSION/
         raise BadSessionError
       else
-        puts response.inspect
         raise RequestFailedError, response
       end
       response
