@@ -58,10 +58,9 @@ Please notice that currently on mp3 files are supported (other formats are under
 
 	# Currently listening to...
 	file_path = '/Users/rogeriopvl/Music/Moonspell/Wolfheart/08_Alma_Mater.mp3'
-	parser = Tinyscrobbler::Parser.new(file_path)
-	current_track = parser.metadata
+	current_track = Tinyscrobbler::Parser.new(file_path)
 	
-	ls.now_playing(current_track)
+	ls.now_playing(current_track.metadata)
 	
 	# after track played
 	
@@ -69,7 +68,7 @@ Please notice that currently on mp3 files are supported (other formats are under
 	# half of the track length has passed
 	# or lastfm may ignore the submission
 	
-	ls.played(current_track)
+	ls.played(current_track.metadata)
 	
 
 More info soon...
