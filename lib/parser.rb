@@ -7,8 +7,6 @@ module Tinyscrobbler
   # It currently supports only mp3 files.
   
   class Parser
-  
-    attr_reader :metadata
     
     # Checks if given file exists and if is supported,
     # and calls the parser method, if not
@@ -21,6 +19,13 @@ module Tinyscrobbler
       raise 'Not a valid audio file.' unless @extension == '.mp3'
       
       @metadata = parse_metadata
+    end
+    
+    # Returns the metadata but updates the time param
+    
+    def metadata
+      @metadata['time'] = Time.now.to_s
+      @metadata
     end
     
     private
