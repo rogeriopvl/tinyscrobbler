@@ -133,18 +133,18 @@ module Tinyscrobbler
 
     def submit_queue
       params = "s=#{@session_id}"
-      i = 0
+      counter = 0
       @queue.each do |item|
-        params << "&a[#{i}]=#{URI.escape(item['artistname'])}"
-        params << "&t[#{i}]=#{URI.escape(item['track'])}"
-        params << "&i[#{i}]=#{URI.escape(item['time'])}"
-        params << "&o[#{i}]=#{URI.escape(item['source'])}"
-        params << "&r[#{i}]=#{URI.escape(item['rating'])}"
-        params << "&l[#{i}]=#{URI.escape(item['secs'])}"
-        params << "&b[#{i}]=#{URI.escape(item['album'])}"
-        params << "&n[#{i}]=#{URI.escape(item['tracknumber'])}"
-        params << "&m[#{i}]=#{URI.escape(item['mbtrackid'])}"
-        i+=1
+        params << "&a[#{counter}]=#{URI.escape(item['artistname'])}"
+        params << "&t[#{counter}]=#{URI.escape(item['track'])}"
+        params << "&i[#{counter}]=#{URI.escape(item['time'])}"
+        params << "&o[#{counter}]=#{URI.escape(item['source'])}"
+        params << "&r[#{counter}]=#{URI.escape(item['rating'])}"
+        params << "&l[#{counter}]=#{URI.escape(item['secs'])}"
+        params << "&b[#{counter}]=#{URI.escape(item['album'])}"
+        params << "&n[#{counter}]=#{URI.escape(item['tracknumber'])}"
+        params << "&m[#{counter}]=#{URI.escape(item['mbtrackid'])}"
+        counter+=1
       end
 
       send_submission(@submission_url, params)

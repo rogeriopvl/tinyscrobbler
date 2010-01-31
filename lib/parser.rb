@@ -34,13 +34,14 @@ module Tinyscrobbler
     
     def parse_metadata
       track = Mp3Info.new(@path)
-      tag = track.hastag1? ? track.tag1 : track.tag2
+      tag_type = track.hastag1?
+      tag = tag_type ? track.tag1 : track.tag2
 
       track_meta = {}
-      track_meta['track'] = track.hastag1? ? tag.title : tag.TIT2
-      track_meta['artistname'] = track.hastag1? ? tag.artist : tag.TPE1
-      track_meta['album'] = track.hastag1? ? tag.album : tag.TALB
-      track_meta['tracknumber'] = track.hastag1? ? tag.tracknum.to_s : tag.TRCK.to_s
+      track_meta['track'] = tag_type ? tag.title : tag.TIT2
+      track_meta['artistname'] = tag_type ? tag.artist : tag.TPE1
+      track_meta['album'] = tag_type ? tag.album : tag.TALB
+      track_meta['tracknumber'] = tag_type ? tag.tracknum.to_s : tag.TRCK.to_s
       track_meta['secs'] = track.length.round.to_s
       track_meta['time'] = Time.now.to_i.to_s
       track_meta['source'] = 'P'
