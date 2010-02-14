@@ -1,4 +1,5 @@
-require '../tinyscrobbler'
+require '../lib/tinyscrobbler.rb'
+require '../lib/parser.rb'
 
 # this is just a quick and dirty way to avoid 
 # placing the login credentials on version control :P
@@ -26,13 +27,14 @@ track_list = [
 ]
 
 # so now, it started playing Moonspell - "Alma Mater" (ftw)
-current_track = {'artistname' => 'Moonspell', 'track' => 'Alma Mater',
-  'album' => 'Wolfheart', 'secs' => '337', 'tracknumber' => '8', 'mbtrackid' => ''}
-
+current_track = {'artistname' => 'Mão Morta', 'track' => 'Arrastando o seu cadáver',
+  'album' => 'Primavera de Destroços', 'secs' => '337', 'tracknumber' => '8', 'mbtrackid' => ''}
 
 # now lets tell lastfm that we're headbanging like there's no tomorrow
-#ls.now_playing(current_track)
-track_list.each do |t|
-  ls.played(t)
-end
+x = ls.now_playing(current_track)
+
+#ls.played(current_track)
+#track_list.each do |t|
+#  ls.played(t)
+#end
 

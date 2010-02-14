@@ -9,7 +9,6 @@
 
 require 'net/http'
 require 'Digest/md5'
-require 'parser.rb'
 
 module Tinyscrobbler
   
@@ -83,7 +82,7 @@ module Tinyscrobbler
       params << "&l=#{URI.escape(track['secs'])}"
       params << "&n=#{URI.escape(track['tracknumber'])}"
       params << "&m=#{URI.escape(track['mbtrackid'])}"
-
+      
       send_submission(@now_playing_url, params)
     end
 
