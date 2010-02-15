@@ -1,3 +1,33 @@
+commit 20e419aca78fce1d95b185e0da77965e61ea2746
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Mon Feb 15 16:30:29 2010 +0000
+
+    Changed client identifier provided by last.fm
+
+commit 1f51ac4a62e73c118b8cfc408a6693ccf16020e8
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Sun Feb 14 23:00:28 2010 +0000
+
+    Removed error in main test. Removed require parser in Tinyscrobbler.rb
+
+commit a9d7ab6aedf5510b81b5d8f5609d70399805c5af
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Sun Jan 31 01:55:04 2010 +0000
+
+    Solved 2 code smells from reek tests.
+
+commit d54019d3fc4f3b5b5e92b7c230a6a5ef13ea7cc4
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Wed Jan 27 02:08:07 2010 +0000
+
+    README updated
+
+commit 4013a106590bdbfeb3886c31dce461c093e8f370
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Wed Jan 27 02:04:12 2010 +0000
+
+    Changelog updated
+
 commit 790304455522363342e1440a880928106effb61b
 Author: Rogerio Vicente <rogerpvl@gmail.com>
 Date:   Wed Jan 27 01:14:58 2010 +0000
