@@ -27,7 +27,7 @@ module Tinyscrobbler
 
   class Client
 
-    CLIENT_ID = 'tst'
+    CLIENT_ID = 'tny'
     CLIENT_VERSION = '1.0'
 
     HANDSHAKE_BASE_URL = "http://post.audioscrobbler.com/?hs=true&p=1.2.1&c=#{CLIENT_ID}&v=#{CLIENT_VERSION}"
