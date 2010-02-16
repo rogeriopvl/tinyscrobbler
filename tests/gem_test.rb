@@ -18,7 +18,7 @@ rescue Exception => e
 end
 
 track_list = [
-  {'artistname' => 'Dimmu Borgir', 'track' => 'Arcane Lifeforce Mysteria',
+  {'artistname' => 'Khold', 'track' => 'Døde Fuglers Sang',
     'time' => '', 'source' => 'P', 'rating' => '',
     'secs' => '247', 'album' => 'Spiritual Black Dimensions', 'tracknumber' => '9', 'mbtrackid' => ''},
   {'artistname' => 'Emperor', 'track' => 'Depraved',
@@ -26,9 +26,15 @@ track_list = [
     'secs' => '257', 'album' => 'Prometheus - The Discipline of Fire and Demise', 'tracknumber' => '2', 'mbtrackid' => ''}
 ]
 
-track_list.each do |track|
-  track['time'] = Time.now.to_i.to_s
-  ls.now_playing(track)
-  sleep track['secs'].to_i/2
-  ls.played(track)
-end
+parser = Tinyscrobbler::Parser.new("/Users/rogeriopvl/Music/iTunes/iTunes\ Music/Mão\ Morta/Primavera\ de\ Destroços/01\ Cão\ da\ Morte.mp3")
+
+#track_list.each do |track|
+#  track['time'] = Time.now.to_i.to_s
+#  ls.now_playing(track)
+#  sleep track['secs'].to_i/2
+#  ls.played(track)
+#end
+
+ls.now_playing(parser.metadata)
+sleep parser.metadata['secs'].to_i/2
+ls.played(parser.metadata)

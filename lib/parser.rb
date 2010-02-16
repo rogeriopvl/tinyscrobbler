@@ -33,7 +33,7 @@ module Tinyscrobbler
     # Returns the file metadata in a hash
     
     def parse_metadata
-      track = Mp3Info.new(@path)
+      track = Mp3Info.new(@path, :encoding => 'iso-8859-1')
       tag_type = track.hastag1?
       tag = tag_type ? track.tag1 : track.tag2
 

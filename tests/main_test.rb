@@ -26,12 +26,20 @@ track_list = [
     'secs' => '257', 'album' => 'Prometheus - The Discipline of Fire and Demise', 'tracknumber' => '2', 'mbtrackid' => ''}
 ]
 
+uni = Iconv.new('UTF-8', 'ISO-8859-1')
+
 # so now, it started playing Moonspell - "Alma Mater" (ftw)
-current_track = {'artistname' => 'Mão Morta', 'track' => 'Arrastando o seu cadáver',
+current_track = {'artistname' => uni.iconv('Mão Morta'), 'track' => uni.iconv('Arrastando o seu cadáver'),
   'album' => 'Primavera de Destroços', 'secs' => '337', 'tracknumber' => '8', 'mbtrackid' => ''}
 
+parser = Tinyscrobbler::Parser.new("/Users/rogeriopvl/Music/iTunes/iTunes\ Music/Mão\ Morta/Primavera\ de\ Destroços/01\ Cão\ da\ Morte.mp3")
+
+ls.now_playing(parser.metadata)
+sleep parser.metadata['secs'].to_i/2
+ls.played(parser.metadata)
+
 # now lets tell lastfm that we're headbanging like there's no tomorrow
-x = ls.now_playing(current_track)
+#x = ls.now_playing(current_track)
 
 #ls.played(current_track)
 #track_list.each do |t|
