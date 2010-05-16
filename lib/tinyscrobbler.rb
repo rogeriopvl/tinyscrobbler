@@ -7,8 +7,11 @@
 # Copyright:: Copyright (c) 2009 Rogerio Vicente
 # License:: GPLv3
 
+$: << File.expand_path(File.dirname(__FILE__))
+
 require 'net/http'
 require 'Digest/md5'
+require 'tinyscrobbler/auth'
 
 module Tinyscrobbler
   
@@ -34,9 +37,18 @@ module Tinyscrobbler
 
     # Starts handshake and initializes instance attributes
 
-    def initialize(username, password)
-      @username = username
-      @password = password
+    def initialize(username, password = nil)
+      if username.is_a?(Hash)
+        @username    = username[:user]
+        @session_key = username[:session_key]
+        @secret      = username[:secret]
+        @api_key     = username[:api_key]
+
+      else
+        @username = username
+        @password = password
+      end
+
       @queue = []
 
       response = handshake()
@@ -61,6 +73,8 @@ module Tinyscrobbler
     # * rating => the track rating: L, B or S (love, ban, skip)
 
     def played(track)
+      track["source"] ||= "P"
+
       @queue << track
       submit_queue
     end
@@ -76,17 +90,35 @@ module Tinyscrobbler
 
     def now_playing(track)
       params = "s=#{@session_id}"
-      params << "&a=#{URI.escape(track['artistname'])}"
-      params << "&t=#{URI.escape(track['track'])}"
-      params << "&b=#{URI.escape(track['album'])}"
-      params << "&l=#{URI.escape(track['secs'])}"
-      params << "&n=#{URI.escape(track['tracknumber'])}"
-      params << "&m=#{URI.escape(track['mbtrackid'])}"
+      params << "&a=#{URI.escape(track['artistname'].to_s)}"
+      params << "&t=#{URI.escape(track['track'].to_s)}"
+      params << "&b=#{URI.escape(track['album'].to_s)}"
+      params << "&l=#{URI.escape(track['secs'].to_s)}"
+      params << "&n=#{URI.escape(track['tracknumber'].to_s)}"
+      params << "&m=#{URI.escape(track['mbtrackid'].to_s)}"
       
       send_submission(@now_playing_url, params)
     end
 
     private
+
+    def handshake_url
+      timestamp = Time.now.to_i.to_s
+
+      options = { "u" => @username, "t" => timestamp }
+
+      if @password
+        options["a"] = generate_token(timestamp)
+      else
+        options["a"]       = Tinyscrobbler::Auth::Web.authentication_token(@secret, timestamp)
+        options["api_key"] = @api_key
+        options["sk"]      = @session_key 
+      end
+
+      param_string = options.collect { |key, val| "#{key}=#{val}" }.join("&")
+
+      "#{HANDSHAKE_BASE_URL}&#{param_string}"
+    end
 
     # Executes the handshake with the API.
     # If handshake returned OK then the entire
@@ -97,10 +129,7 @@ module Tinyscrobbler
     # * index 3 is the submissions url
 
     def handshake
-      timestamp = Time.now.to_i.to_s
-      token = generate_token(timestamp)
-
-      url = URI.parse(HANDSHAKE_BASE_URL+"&u=#{@username}&t=#{timestamp}&a=#{token}")
+      url = URI.parse(handshake_url)
       response = Net::HTTP.get(url)
 
       case response
@@ -134,15 +163,15 @@ module Tinyscrobbler
       params = "s=#{@session_id}"
       counter = 0
       @queue.each do |item|
-        params << "&a[#{counter}]=#{URI.escape(item['artistname'])}"
-        params << "&t[#{counter}]=#{URI.escape(item['track'])}"
-        params << "&i[#{counter}]=#{URI.escape(item['time'])}"
-        params << "&o[#{counter}]=#{URI.escape(item['source'])}"
-        params << "&r[#{counter}]=#{URI.escape(item['rating'])}"
-        params << "&l[#{counter}]=#{URI.escape(item['secs'])}"
-        params << "&b[#{counter}]=#{URI.escape(item['album'])}"
-        params << "&n[#{counter}]=#{URI.escape(item['tracknumber'])}"
-        params << "&m[#{counter}]=#{URI.escape(item['mbtrackid'])}"
+        params << "&a[#{counter}]=#{URI.escape(item['artistname'].to_s)}"
+        params << "&t[#{counter}]=#{URI.escape(item['track'].to_s)}"
+        params << "&i[#{counter}]=#{URI.escape(item['time'].to_s)}"
+        params << "&o[#{counter}]=#{URI.escape(item['source'].to_s)}"
+        params << "&r[#{counter}]=#{URI.escape(item['rating'].to_s)}"
+        params << "&l[#{counter}]=#{URI.escape(item['secs'].to_s)}"
+        params << "&b[#{counter}]=#{URI.escape(item['album'].to_s)}"
+        params << "&n[#{counter}]=#{URI.escape(item['tracknumber'].to_s)}"
+        params << "&m[#{counter}]=#{URI.escape(item['mbtrackid'].to_s)}"
         counter+=1
       end
 
