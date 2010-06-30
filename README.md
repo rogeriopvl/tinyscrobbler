@@ -6,15 +6,13 @@ I'm currently learning ruby, so it's very likely that this is not the best ruby 
 
 ## Installation
 
-In order to install Tinyscrobbler you have to download the latest gem from [gemcutter.org](http://gemcutter.org). If you've never installed a gem from gemcutter you need to add it to your sources:
-
-	$ gem sources -a http://gemcutter.org
-
-Then install the gem just like any other:
+To install Tinyscrobbler use rubygems:
 
 	$ gem install tinyscrobbler
 
 Depending on your system, you might need to use `sudo` to execute gem commands.
+
+**Rubygems page:** [http://rubygems.org/gems/tinyscrobbler](http://rubygems.org/gems/tinyscrobbler)
 
 ## How to use
 
