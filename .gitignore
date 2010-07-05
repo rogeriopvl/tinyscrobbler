@@ -1,0 +1,8 @@
+.DS_Store
+*~
+*.swp
+*.gemspec
+*.gem
+*.login
+build/
+# tmp/**/*
