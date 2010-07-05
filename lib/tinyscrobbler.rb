@@ -76,12 +76,12 @@ module Tinyscrobbler
 
     def now_playing(track)
       params = "s=#{@session_id}"
-      params << "&a=#{URI.escape(track['artistname'])}"
-      params << "&t=#{URI.escape(track['track'])}"
-      params << "&b=#{URI.escape(track['album'])}"
-      params << "&l=#{URI.escape(track['secs'])}"
-      params << "&n=#{URI.escape(track['tracknumber'])}"
-      params << "&m=#{URI.escape(track['mbtrackid'])}"
+      params << "&a=#{URI.escape(track['artistname'].to_s)}"
+      params << "&t=#{URI.escape(track['track'].to_s)}"
+      params << "&b=#{URI.escape(track['album'].to_s)}"
+      params << "&l=#{URI.escape(track['secs'].to_s)}"
+      params << "&n=#{URI.escape(track['tracknumber'].to_s)}"
+      params << "&m=#{URI.escape(track['mbtrackid'].to_s)}"
       
       send_submission(@now_playing_url, params)
     end
@@ -134,15 +134,15 @@ module Tinyscrobbler
       params = "s=#{@session_id}"
       counter = 0
       @queue.each do |item|
-        params << "&a[#{counter}]=#{URI.escape(item['artistname'])}"
-        params << "&t[#{counter}]=#{URI.escape(item['track'])}"
-        params << "&i[#{counter}]=#{URI.escape(item['time'])}"
-        params << "&o[#{counter}]=#{URI.escape(item['source'])}"
-        params << "&r[#{counter}]=#{URI.escape(item['rating'])}"
-        params << "&l[#{counter}]=#{URI.escape(item['secs'])}"
-        params << "&b[#{counter}]=#{URI.escape(item['album'])}"
-        params << "&n[#{counter}]=#{URI.escape(item['tracknumber'])}"
-        params << "&m[#{counter}]=#{URI.escape(item['mbtrackid'])}"
+        params << "&a[#{counter}]=#{URI.escape(item['artistname'].to_s)}"
+        params << "&t[#{counter}]=#{URI.escape(item['track'].to_s)}"
+        params << "&i[#{counter}]=#{URI.escape(item['time'].to_s)}"
+        params << "&o[#{counter}]=#{URI.escape(item['source'].to_s)}"
+        params << "&r[#{counter}]=#{URI.escape(item['rating'].to_s)}"
+        params << "&l[#{counter}]=#{URI.escape(item['secs'].to_s)}"
+        params << "&b[#{counter}]=#{URI.escape(item['album'].to_s)}"
+        params << "&n[#{counter}]=#{URI.escape(item['tracknumber'].to_s)}"
+        params << "&m[#{counter}]=#{URI.escape(item['mbtrackid'].to_s)}"
         counter+=1
       end
 
