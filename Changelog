@@ -1,3 +1,45 @@
+commit 5a7d314606c6a37b043ce0c69b60e36b3cf05244
+Author: rogeriopvl <rogeriopvl@gmail.com>
+Date:   Mon Jul 5 23:05:54 2010 +0100
+
+    Bumped to version 0.3.3
+
+commit ea43f41b38d28a29d83a8efd291843b0f2714454
+Author: rogeriopvl <rogeriopvl@gmail.com>
+Date:   Mon Jul 5 22:55:20 2010 +0100
+
+    Added gemspec file.
+
+commit d2b0ef9b18243e6734774b1832dd8e7d9dcb7875
+Author: rogeriopvl <rogeriopvl@gmail.com>
+Date:   Mon Jul 5 22:54:12 2010 +0100
+
+    Changed tests to use the ruby unit test module. Fixed some array to string that could cause some problems. Removed gemspec from gitignore.
+
+commit 1dfe63e0c043def99615f401085881eda50a75f7
+Author: rogeriopvl <rogeriopvl@gmail.com>
+Date:   Mon Jul 5 09:30:43 2010 +0100
+
+    Fixing file permissions again...
+
+commit 866b1f8873957bbb5607e059c2abc9356c68bef5
+Author: rogeriopvl <rogeriopvl@gmail.com>
+Date:   Mon Jul 5 09:26:14 2010 +0100
+
+    File permissions...
+
+commit 355de08bbf9973b14fc16689f25b1b0f057d64f6
+Author: rogeriopvl <rogeriopvl@gmail.com>
+Date:   Wed Jun 30 23:40:49 2010 +0100
+
+    Updated readme on the installation section. It no longer uses gemcutter, but the oficial Rubygems repo.
+
+commit b1bff8760a022f9e753f9b7fb6ee5774876af05f
+Author: Rogerio Vicente <rogerpvl@gmail.com>
+Date:   Mon Feb 15 22:21:13 2010 +0000
+
+    Version 0.3.2
+
 commit 20e419aca78fce1d95b185e0da77965e61ea2746
 Author: Rogerio Vicente <rogerpvl@gmail.com>
 Date:   Mon Feb 15 16:30:29 2010 +0000
