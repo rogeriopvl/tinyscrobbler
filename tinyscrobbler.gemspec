@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'tinyscrobbler'
-  s.version = '0.3.2'
+  s.version = '0.3.3'
   s.summary = "A very lightweight last.fm scrobbler library written in ruby."
   s.date = '2010-02-15'
   s.email = 'rogeriopvl@gmail.com'
