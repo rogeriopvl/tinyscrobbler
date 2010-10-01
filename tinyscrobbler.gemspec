@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.authors = ["Rogerio Vicente"]
   s.date = %q{2010-05-16}
   s.email = %q{rogeriopvl@gmail.com}
-  s.files = ["Changelog", "LICENSE", "README.md", "example.rb", "lib/parser.rb", "lib/tinyscrobbler.rb", "tests/gem_test.rb", "tests/main_test.rb"]
+  s.files = ["Changelog", "LICENSE", "README.md", "example.rb", "lib/parser.rb", "lib/tinyscrobbler.rb", "lib/tinyscrobbler/auth.rb", "tests/gem_test.rb", "tests/main_test.rb"]
   s.homepage = %q{http://github.com/rogeriopvl/tinyscrobbler}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.5}
