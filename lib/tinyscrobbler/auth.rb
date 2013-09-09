@@ -1,5 +1,5 @@
 require 'httparty'
-require 'md5'
+require 'digest/md5'
 
 module Tinyscrobbler
   module Auth
@@ -28,7 +28,7 @@ module Tinyscrobbler
   class Request
     include HTTParty
     base_uri "ws.audioscrobbler.com/2.0/"
-      
+
     attr_accessor :params, :secret, :api_key, :session_key
 
     def initialize(options = {})
