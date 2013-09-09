@@ -26,7 +26,7 @@ In this usage example you need to provide the track info (metadata), like artist
 	require 'rubygems'
 	require 'tinyscrobbler'
 
-	ls = Tinyscrobbler::Client.new(lastfm_username, lasftfm_password)
+	ls = Tinyscrobbler::Client.new(:user => "username", :secret => "API_SECRET", :api_key => "API_KEY", session_key => "SESSION_KEY")
 
 	# Currently listening to...
 

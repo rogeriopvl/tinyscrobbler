@@ -7,8 +7,11 @@
 # Copyright:: Copyright (c) 2009 Rogerio Vicente
 # License:: GPLv3
 
+$: << File.expand_path(File.dirname(__FILE__))
+
 require 'net/http'
 require 'Digest/md5'
+require 'tinyscrobbler/auth'
 
 module Tinyscrobbler
   
@@ -34,9 +37,18 @@ module Tinyscrobbler
 
     # Starts handshake and initializes instance attributes
 
-    def initialize(username, password)
-      @username = username
-      @password = password
+    def initialize(username, password = nil)
+      if username.is_a?(Hash)
+        @username    = username[:user]
+        @session_key = username[:session_key]
+        @secret      = username[:secret]
+        @api_key     = username[:api_key]
+
+      else
+        @username = username
+        @password = password
+      end
+
       @queue = []
 
       response = handshake()
@@ -61,6 +73,8 @@ module Tinyscrobbler
     # * rating => the track rating: L, B or S (love, ban, skip)
 
     def played(track)
+      track["source"] ||= "P"
+
       @queue << track
       submit_queue
     end
@@ -88,6 +102,24 @@ module Tinyscrobbler
 
     private
 
+    def handshake_url
+      timestamp = Time.now.to_i.to_s
+
+      options = { "u" => @username, "t" => timestamp }
+
+      if @password
+        options["a"] = generate_token(timestamp)
+      else
+        options["a"]       = Tinyscrobbler::Auth::Web.authentication_token(@secret, timestamp)
+        options["api_key"] = @api_key
+        options["sk"]      = @session_key 
+      end
+
+      param_string = options.collect { |key, val| "#{key}=#{val}" }.join("&")
+
+      "#{HANDSHAKE_BASE_URL}&#{param_string}"
+    end
+
     # Executes the handshake with the API.
     # If handshake returned OK then the entire
     # response is returned in a array, where
@@ -97,10 +129,7 @@ module Tinyscrobbler
     # * index 3 is the submissions url
 
     def handshake
-      timestamp = Time.now.to_i.to_s
-      token = generate_token(timestamp)
-
-      url = URI.parse(HANDSHAKE_BASE_URL+"&u=#{@username}&t=#{timestamp}&a=#{token}")
+      url = URI.parse(handshake_url)
       response = Net::HTTP.get(url)
 
       case response
