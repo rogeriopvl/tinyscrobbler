@@ -11,8 +11,8 @@ module Tinyscrobbler
       end
 
       def initialize(options = {})
-        @api_key     = options[:api_key]
-        @secret      = options[:secret]
+        @api_key = options[:api_key]
+        @secret = options[:secret]
       end
 
       def get_session_key(token)

@@ -2,7 +2,7 @@
 # to the LastFM submissions API.
 # For more info on the submissions API visit:
 # http://www.last.fm/api/submissions
-# 
+#
 # Author:: Rogerio Vicente (http://rogeriopvl.com)
 # Copyright:: Copyright (c) 2009 Rogerio Vicente
 # License:: GPLv3
@@ -14,7 +14,7 @@ require 'Digest/md5'
 require 'tinyscrobbler/auth'
 
 module Tinyscrobbler
-  
+
   # Exception classes
 
   class BadFormatedResponseError < Exception; end
@@ -39,10 +39,10 @@ module Tinyscrobbler
 
     def initialize(username, password = nil)
       if username.is_a?(Hash)
-        @username    = username[:user]
+        @username = username[:user]
         @session_key = username[:session_key]
-        @secret      = username[:secret]
-        @api_key     = username[:api_key]
+        @secret = username[:secret]
+        @api_key = username[:api_key]
 
       else
         @username = username
@@ -96,7 +96,7 @@ module Tinyscrobbler
       params << "&l=#{URI.escape(track['secs'].to_s)}"
       params << "&n=#{URI.escape(track['tracknumber'].to_s)}"
       params << "&m=#{URI.escape(track['mbtrackid'].to_s)}"
-      
+
       send_submission(@now_playing_url, params)
     end
 
@@ -110,9 +110,9 @@ module Tinyscrobbler
       if @password
         options["a"] = generate_token(timestamp)
       else
-        options["a"]       = Tinyscrobbler::Auth::Web.authentication_token(@secret, timestamp)
+        options["a"] = Tinyscrobbler::Auth::Web.authentication_token(@secret, timestamp)
         options["api_key"] = @api_key
-        options["sk"]      = @session_key 
+        options["sk"] = @session_key
       end
 
       param_string = options.collect { |key, val| "#{key}=#{val}" }.join("&")
