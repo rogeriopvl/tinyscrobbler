@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 
 require 'rubygems'
-require '../lib/tinyscrobbler/auth.rb'
-require '../lib/tinyscrobbler.rb'
-require '../lib/parser.rb'
+require './lib/tinyscrobbler/auth.rb'
+require './lib/tinyscrobbler.rb'
+require './lib/parser.rb'
 
 require 'test/unit'
 
@@ -13,7 +13,7 @@ class ClientTest < Test::Unit::TestCase
     # this is just a quick and dirty way to avoid
     # placing the login credentials on version control :P
     begin
-      content = File.read('info.login').split("\n")
+      content = File.read('./test/info.login').split("\n")
       @username = content[0]
       @password = content[1]
       @api_secret = content[2]

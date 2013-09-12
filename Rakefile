@@ -9,6 +9,11 @@ def package(ext='')
   "build/tinyscrobbler-#{$spec.version}" + ext
 end
 
+desc 'Run tests'
+task :test do
+  exec('ruby test/client_test.rb')
+end
+
 desc 'Build packages'
 task :package => %w[.gem].map {|e| package(e)}
 
